@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: task-openfeign
+  zipkin:
+    base-url: http://127.0.0.1:9411/
+    discoveryClientEnabled: false
+    sender:
+      type: web  # 设置使用http的方式传输数据
+  sleuth:
+    sampler:
+      percentage: 1.0
+
+server:
+  context-path: /
+  port: 4040
+
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:8000/eureka/,http://127.0.0.1:8001/eureka/,http://127.0.0.1:8002/eureka/
+
+#feign的配置项:
+feign:
+  hystrix:
+    enabled: true #启动feign的断路器功能
+  compression:
+    request:
+      min-request-size: 2048
+      mime-types:
+        - text/xml, application/xml, application/json
+    response:
+      enabled: true

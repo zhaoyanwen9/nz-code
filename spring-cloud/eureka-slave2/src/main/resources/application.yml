@@ -1,0 +1,20 @@
+server:
+  port: 8002
+spring:
+  application:
+    name: eureka-server
+eureka:
+  server:
+    enable-self-preservation: true
+  instance:
+    hostname: localhost
+    prefer-ip-address: false
+    ip-address: 192.168.31.110
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+    lease-renewal-interval-in-seconds: 10
+    lease-expiration-duration-in-seconds: 60
+  client:
+    fetch-registry: false
+    register-with-eureka: false
+    service-url:
+      defaultZone: http://127.0.0.1:8000/eureka/,http://127.0.0.1:8001/eureka/

@@ -20,12 +20,12 @@ management:
         include: hystrix.stream
 
 zuul:
-  prefix: /api
+  prefix: /gateway
   ignored-services: '*'
   sensitive-headers: Cookie,Set-Cookie,Authorization # 指定全局敏感header，默认是Cooki,Set-Cookie,Authorization
   routes:
     task-route: #路由名称,自定义
-      path: /task_web/** # service-id对应的路径
-      service-id: task-openfeign
+      path: /zuul-task/** # service-id对应的路径
+      service-id: feign-task
 
 

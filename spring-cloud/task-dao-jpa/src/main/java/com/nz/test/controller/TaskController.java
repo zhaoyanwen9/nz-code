@@ -28,10 +28,11 @@ public class TaskController {
 
     /**
      * 异步调用:
-     *     @Async
-     *     @EnableAsync
+     *
      * @return
      * @throws InterruptedException
+     * @Async
+     * @EnableAsync
      */
     @RequestMapping("/taskService")
     public String doTask() throws InterruptedException {
@@ -66,9 +67,11 @@ public class TaskController {
         return taskService.getAll();
     }
 
-    @RequestMapping(value = "/get_by_rp", method = {RequestMethod.GET})
-    public String getByRp() {
-        return taskService.getByRp();
+    @RequestMapping(value = "/getByRp", method = {RequestMethod.GET})
+    public String getByRp(@RequestParam(value = "page") int page,
+                          @RequestParam(value = "size") int size,
+                          @RequestParam(value = "name") String name) {
+        return taskService.getByRp(page, size, name);
     }
 
     @RequestMapping(value = "/get_by_id/{id}", method = {RequestMethod.GET})

@@ -1,6 +1,6 @@
 spring:
   application:
-    name: task-openfeign
+    name: feign-task
   zipkin:
     base-url: http://127.0.0.1:9411/
     discoveryClientEnabled: false

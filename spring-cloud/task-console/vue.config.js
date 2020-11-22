@@ -1,18 +1,20 @@
 module.exports = {
     // axios域代理，解决axios跨域问题
     // baseUrl: '/',
+    lintOnSave: false,
     devServer: {
         // host: "localhost",
-        port: 8082,
+        port: 8080,
         // https: false,
         // open: false,
         proxy: {
-            '/proxy/task/api': {
-                target: 'http://localhost:5050',
+            '/api': {
+                // target: 'http://localhost:5050',
+                target: 'http://localhost:9090',
                 changeOrigin: true, //开启代理
                 ws: true, // 是否启用websockets
                 pathRewrite: {
-                    "^/proxy/task/api": "" // '/api'代替target
+                    "^/api": "" // '/api'代替target
                 }
             },
             '/proxy-permission/api/': {

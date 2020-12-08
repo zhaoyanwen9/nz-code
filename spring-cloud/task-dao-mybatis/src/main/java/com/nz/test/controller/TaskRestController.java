@@ -4,7 +4,6 @@ import com.nz.test.domain.Task;
 import com.nz.test.service.TaskService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -15,48 +14,42 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
-/**
- * @author nz
- * @RestController = @ResponseBody + @Controller
- */
-@Controller
-@ResponseBody
-@RequestMapping(value = "/task")
-public class TaskController {
-
+@RestController
+@RequestMapping(value = "/rest_task")
+public class TaskRestController {
     private static final Logger logger = LoggerFactory.getLogger(TaskController.class);
 
     @Resource(name = "simpleTaskServiceImpl")
     private TaskService taskService;
 
-    @RequestMapping(value = "/byName", method = RequestMethod.GET)
+    @GetMapping(value = "/byName")
     public List<Task> getByName(String name) {
         return taskService.getByName(name);
     }
 
-    @RequestMapping(value = "/byNameStatus", method = RequestMethod.GET)
+    @GetMapping(value = "/byNameStatus")
     public List<Task> getByNameAndStatus(String name, int status) {
         return taskService.getByNameAndStatus(name, status);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/{id}")
     public Task getById(@PathVariable int id) {
         return taskService.getById(id);
     }
 
-    @RequestMapping(value = "/selectById", method = RequestMethod.GET)
+    @GetMapping(value = "/selectById")
     public HashMap selectById(HttpServletRequest request, @RequestParam(value = "id", required = false, defaultValue = "1") int id) {
         HttpSession session = request.getSession();
         logger.info("{}", session.getId());
         return taskService.selectById(id);
     }
 
-    @RequestMapping(value = "/saveOneTask", method = RequestMethod.POST)
+    @PostMapping(value = "/saveOneTask")
     public int saveOneTask(@RequestParam(value = "name", required = false, defaultValue = "1") String name) {
         return taskService.saveOneTask(name);
     }
 
-    @RequestMapping(value = "/saveManyTask", method = RequestMethod.POST)
+    @PostMapping(value = "/saveManyTask")
     public int saveManyTask(@RequestBody String body) {
         List<Task> list = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
@@ -67,13 +60,13 @@ public class TaskController {
         return taskService.saveManyTask(list);
     }
 
-    @RequestMapping(value = "/upgById", method = RequestMethod.PUT)
+    @PutMapping(value = "/upgById")
     public int updateTaskById(@RequestParam(value = "id") int id,
                               @RequestParam(value = "name") String name) {
         return taskService.updateTaskById(id, name);
     }
 
-    @RequestMapping(value = "/delById", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/delById")
     public int deleteTaskById(@RequestParam(value = "id") int id) {
         return taskService.deleteTaskById(id);
     }

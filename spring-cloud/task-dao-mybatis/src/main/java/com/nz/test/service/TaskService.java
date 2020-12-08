@@ -1,17 +1,60 @@
 package com.nz.test.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.nz.test.domain.Task;
-import com.nz.test.mapper.TaskMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import java.util.HashMap;
+import java.util.List;
 
-@Service
-public class TaskService {
+public interface TaskService extends IService<Task> {
 
-    @Autowired
-    private TaskMapper taskMapper;
+    /**
+     * 名称查询
+     * @param name
+     * @return
+     */
+    List<Task> getByName(String name);
 
-    public Task getById(int id) {
-        return taskMapper.getById(id);
-    }
+    /**
+     * 名称 + 状态查询
+     * @param name
+     * @param status
+     * @return
+     */
+    List<Task> getByNameAndStatus(String name, int status);
+
+    /**
+     * 主键查询
+     * @param id
+     * @return
+     */
+    HashMap selectById(int id);
+
+    /**
+     * 单对象保存
+     * @param name
+     * @return
+     */
+    int saveOneTask(String name);
+
+    /**
+     * 多对象保存
+     * @param list
+     * @return
+     */
+    int saveManyTask(List<Task> list);
+
+    /**
+     * 根据主键更新
+     * @param id
+     * @param name
+     * @return
+     */
+    int updateTaskById(int id, String name);
+
+    /**
+     * 根据主键删除
+     * @param id
+     * @return
+     */
+    int deleteTaskById(int id);
 }

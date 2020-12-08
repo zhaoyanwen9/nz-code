@@ -30,7 +30,6 @@
         <module>task-openfeign</module>
         <module>task-service</module>
 		<module>task-web</module>
-        <module>task-web2</module>
 		<module>xxl-sso</module>
     </modules>
 

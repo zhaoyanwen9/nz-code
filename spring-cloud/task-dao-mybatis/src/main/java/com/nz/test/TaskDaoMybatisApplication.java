@@ -6,9 +6,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.ImportResource;
 
-@ServletComponentScan
-@ImportResource(locations = {"classpath:config/druid/druid-bean.xml"})
-@MapperScan("com.nz.test.mapper")
+// @ServletComponentScan
+// @ImportResource(locations = {"classpath:config/druid/druid-bean.xml"})
+@MapperScan("com.nz.test.mapper.**")
 @SpringBootApplication
 public class TaskDaoMybatisApplication {
 

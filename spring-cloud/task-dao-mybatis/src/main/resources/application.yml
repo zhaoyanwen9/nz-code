@@ -1,15 +1,10 @@
 server:
-  port: 8080
+  port: 8090
 
 # mybatis:
 #   config-location: classpath:config/mybatis/mybatis-config.xml # mybatis的config文件位置配置
 #   mapper-locations: classpath:config/mybatis/mapping/*.xml     # 表的xml文件位置配置
 #   type-aliases-package: com.nz.test.domain
-
-# SpringBoot + mybatis设置将SQL语句打印到控制台
-logging:
-  level:
-    com.nz.test.mapper: debug
 
 mybatis-plus:
   global-config:
@@ -21,10 +16,25 @@ mybatis-plus:
       logic-delete-value: 1 # 逻辑已删除值(默认为 1)
       logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
   config-location: classpath:config/mybatis/mybatis-config.xml # mybatis的config文件位置配置
-  mapper-locations: classpath:config/mybatis/mapping/*.xml     # 表的xml文件位置配置
-  type-aliases-package: com.nz.test.domain
+  mapper-locations: classpath:config/mybatis/mapping/**/*.xml     # 表的xml文件位置配置
+  type-aliases-package: com.nz.test.domain.**
 
 spring:
+#  resources:  #静态资源
+#    static-locations:
+#      - classpath:/META-INF/resources/
+#      - classpath:/resources/
+#      - classpath:/static/
+#      - classpath:/public/
+#      - classpath:/img/
+#      - classpath:/js/
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+  view:
+    prefix: /WEB-INF/jsp/
+    suffix: .jsp
   datasource:
     # 配置数据源
     driver-class-name: com.mysql.cj.jdbc.Driver  # mysql数据库驱动
@@ -88,4 +98,9 @@ spring:
             delete-where-alway-true-check: true
             delete-where-none-check: true
       # 合并多个DruidDataSource的监控数据
-      use-global-data-source-stat: true
+      # use-global-data-source-stat: true
+
+# SpringBoot + mybatis设置将SQL语句打印到控制台
+logging:
+  level:
+    com.nz.test.mapper: debug

@@ -10,10 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * @author nz
@@ -40,8 +37,9 @@ public class TaskController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public Task getById(@PathVariable int id) {
-        return taskService.getById(id);
+    public Map<String,Object> getById(@PathVariable int id) {
+        Map<String,Object> map = (Map<String, Object>) taskService.getById(id);
+        return map;
     }
 
     @RequestMapping(value = "/selectById", method = RequestMethod.GET)

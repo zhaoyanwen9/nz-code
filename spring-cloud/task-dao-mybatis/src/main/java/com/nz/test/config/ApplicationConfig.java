@@ -19,9 +19,9 @@ public class ApplicationConfig {
         return applicationArguments -> {
             try {
                 InetAddress ia = InetAddress.getLocalHost();
-                logger.info("启动成功：" + "http://" + ia.getHostAddress());
+                logger.info("启动成功：http://{}", ia.getHostAddress());
             } catch (UnknownHostException e) {
-                e.printStackTrace();
+                logger.info("启动失败: {}", e.getMessage());
             }
         };
     }

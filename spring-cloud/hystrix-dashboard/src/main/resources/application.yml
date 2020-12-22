@@ -4,11 +4,11 @@ spring:
     
 server: 
   context-path: /
-  port: 7070
+  port: 4040
 
 hystrix:
   dashboard:
-    proxy-stream-allow-list: "localhost"
+    proxy-stream-allow-list: "127.0.0.1"
 
 eureka:
   instance:
@@ -16,5 +16,5 @@ eureka:
     prefer-ip-address: true
   client:
     service-url:
-      defaultZone: http://127.0.0.1:8000/eureka/,http://127.0.0.1:8001/eureka/,http://127.0.0.1:8002/eureka/
+      defaultZone: http://127.0.0.1:5050/eureka/,http://127.0.0.1:5051/eureka/,http://127.0.0.1:5052/eureka/
 

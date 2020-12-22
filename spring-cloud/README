@@ -1,0 +1,18 @@
+        console -> nginx -> gateway-zuul -> openfeign -> server
+nginx ->
+        console -> nginx -> server: 认证
+
+# 端口规划
+1.eureka-server: 5050,5051,5052
+2.task-console: 9090,9091
+      nginx: (80 -> 9090,9091), 8080 (8080 -> 7070)
+          gateway-zuul: 7070
+              openfeign: 6060
+                  task-web: 8010,8011
+                      task-service: 8020,8021
+                      task-dao:
+                          task-dao-jpa: 8030,8031
+                          task-dao-mybatis: 8040
+                          task-dao-mybatis-plus: 8050
+                          task-dao-jdbc: 8060
+3.HystrixDashboard: 4040

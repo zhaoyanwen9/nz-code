@@ -12,7 +12,7 @@ spring:
 
 server:
   context-path: /
-  port: 4040
+  port: 6060
 
 eureka:
   instance:
@@ -20,12 +20,17 @@ eureka:
     prefer-ip-address: true
   client:
     service-url:
-      defaultZone: http://127.0.0.1:8000/eureka/,http://127.0.0.1:8001/eureka/,http://127.0.0.1:8002/eureka/
+      defaultZone: http://127.0.0.1:5050/eureka/,http://127.0.0.1:5051/eureka/,http://127.0.0.1:5052/eureka/
 
 #feign的配置项:
 feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000  # 指定Feign客户端连接提供者的超时时限   取决于网络环境
+        readTimeout: 5000   # 指定Feign客户端从请求到获取到提供者给出的响应的超时时限  取决于业务逻辑运算时间
   hystrix:
-    enabled: true #启动feign的断路器功能
+    enabled: false #启动feign的断路器功能
   compression:
     request:
       min-request-size: 2048

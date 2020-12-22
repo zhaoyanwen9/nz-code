@@ -1,0 +1,6 @@
+1、导入依赖spring-cloud-starter-hystrix
+2、消费启动类开启@EnableCircuitBreaker
+3、配置yml文件feign.hystrix.enabled=true
+4、实现FeignClient接口或FallbackFactory接口
+   4.1、实现FeignClient接口
+   4.2、实现FallbackFactory接口

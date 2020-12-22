@@ -1,12 +1,19 @@
 package com.nz.test.hystrix;
 
-import com.nz.test.UserFeign;
+import com.nz.test.TaskFeign;
 import feign.hystrix.FallbackFactory;
+import org.springframework.stereotype.Component;
 
-public class UserHystrix implements FallbackFactory<UserFeign> {
+@Component
+public class TaskHystrix2 implements FallbackFactory<TaskFeign> {
 
     @Override
-    public UserFeign create(Throwable throwable) {
-        return null;
+    public TaskFeign create(Throwable throwable) {
+        return new TaskFeign() {
+            @Override
+            public String getByRp() {
+                return "呦西!!!";
+            }
+        };
     }
 }

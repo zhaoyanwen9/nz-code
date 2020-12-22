@@ -5,14 +5,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value = "/feign-task")
+@RequestMapping(value = "/task")
 public class TaskController {
 
     @Autowired
     private TaskFeign taskFeign;
 
     @GetMapping(value = "/getByRp")
-    public String getByRp(@RequestParam int page, @RequestParam int size, @RequestParam String name) {
-        return taskFeign.getByRp(page, size, name);
+    public String getByRp() {
+        String result = taskFeign.getByRp();
+        return result;
     }
 }

@@ -15,7 +15,7 @@ spring:
         format_sql: true
     show-sql: true
 server:
-  port: 8080
+  port: 8010
   servlet:
     context-path: /
 eureka:
@@ -27,4 +27,4 @@ eureka:
   client:
     register-with-eureka: true
     service-url:
-      defaultZone: http://127.0.0.1:8000/eureka/,http://127.0.0.1:8001/eureka/,http://127.0.0.1:8002/eureka/
+      defaultZone: http://127.0.0.1:5050/eureka/,http://127.0.0.1:5051/eureka/,http://127.0.0.1:5052/eureka/

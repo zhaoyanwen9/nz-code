@@ -7,7 +7,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 
-@EnableHystrix
+// @EnableHystrix
 @EnableCircuitBreaker
 @EnableZuulProxy
 @EnableDiscoveryClient

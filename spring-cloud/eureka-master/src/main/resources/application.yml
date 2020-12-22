@@ -1,31 +1,31 @@
 # https://www.cnblogs.com/zyon/p/11023750.html
 server:
-  port: 8000 # 应用端口，Eureka服务端默认为: 8761
+  port: 5050 # 应用端口，Eureka服务端默认为: 8761
 spring:
   application:
     name: eureka-server # 应用名称，将会显示在Eureka界面的应用名称列
 eureka:
   server:
-    enable-self-preservation: true # 是否允许开启自我保护模式，缺省：true,当Eureka服务器在短时间内丢失过多客户端时,自我保护模式可使服务端不再删除失去连接的客户端
-    peer-eureka-nodes-update-interval-ms: 10000 # Peer节点更新间隔，单位：毫秒
+    enable-self-preservation: false # 是否允许开启自我保护模式，缺省：true,当Eureka服务器在短时间内丢失过多客户端时,自我保护模式可使服务端不再删除失去连接的客户端
+    peer-eureka-nodes-update-interval-ms: 60000 # Peer节点更新间隔，单位：毫秒
     eviction-interval-timer-in-ms: 60000 # Eureka服务器清理无效节点的时间间隔，单位：毫秒，缺省：60000，即60秒
     use-read-only-response-cache: false # 此处不开启缓存
     response-cache-auto-expiration-in-seconds: 60
   instance:
     appname: registry-center # 服务名，默认取 spring.application.name 配置值，如果没有则为 unknown
-    hostname: 192.168.31.110 # 应用实例主机名
-    ip-address: 192.168.31.110 # 应用实例IP
+    hostname: 127.0.0.1 # 应用实例主机名
+    ip-address: 127.0.0.1 # 应用实例IP
     prefer-ip-address: true # 客户端在注册时使用自己的IP而不是主机名，缺省：false
     instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port} # 实例ID
-    lease-renewal-interval-in-seconds: 10 # 服务续约（心跳）频率，单位：秒，缺省30
-    lease-expiration-duration-in-seconds: 60 # 服务失效时间，失效的服务将被剔除。单位：秒，默认：90
+    lease-renewal-interval-in-seconds: 30 # 服务续约（心跳）频率，单位：秒，缺省30
+    lease-expiration-duration-in-seconds: 30 # 服务失效时间，失效的服务将被剔除。单位：秒，默认：90
     status-page-url-path: /info # 状态页面的URL，相对路径，默认使用 HTTP 访问，如需使用 HTTPS则要使用绝对路径配置，缺省：/info
     health-check-url-path: /health # 健康检查页面的URL，相对路径，默认使用 HTTP 访问，如需使用 HTTPS则要使用绝对路径配置，缺省：/health
   client:
     fetch-registry: false # 是否从Eureka获取注册信息，缺省：true;# 一般情况下，Eureka服务端是不需要的
     register-with-eureka: false # 是否向注册中心注册自己，缺省：true; # 一般情况下，Eureka服务端是不需要再注册自己的
     service-url:
-      defaultZone: http://127.0.0.1:8001/eureka/,http://127.0.0.1:8002/eureka/ # Eureka服务器的地址，类型为HashMap，缺省的Key为 defaultZone；缺省的Value为 http://localhost:8761/eureka; # 如果服务注册中心为高可用集群时，多个注册中心地址以逗号分隔。
-    registry-fetch-interval-seconds: 5 # 客户端拉取服务注册信息间隔，单位：秒，缺省：30
+      defaultZone: http://127.0.0.1:5051/eureka/,http://127.0.0.1:5052/eureka/ # Eureka服务器的地址，类型为HashMap，缺省的Key为 defaultZone；缺省的Value为 http://localhost:8761/eureka; # 如果服务注册中心为高可用集群时，多个注册中心地址以逗号分隔。
+    registry-fetch-interval-seconds: 30 # 客户端拉取服务注册信息间隔，单位：秒，缺省：30
     health-check:
       enabled: true # 是否启用客户端健康检查

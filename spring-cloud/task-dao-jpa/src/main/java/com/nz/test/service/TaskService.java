@@ -5,6 +5,8 @@ import com.google.gson.JsonParser;
 import com.nz.test.dao.task.ITaskDaoJpaRepository;
 import com.nz.test.entity.TaskEntity;
 import com.google.gson.Gson;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -24,6 +26,8 @@ import java.util.List;
 
 @Service
 public class TaskService {
+
+    private static final Logger logger = LoggerFactory.getLogger(TaskService.class);
 
     private JsonParser jsonParser = new JsonParser();
 
@@ -93,16 +97,18 @@ public class TaskService {
                     predicateList.add(criteriaBuilder.like(root.get("name").as(String.class), stringBuffer.toString()));
                 }
                 // 查询开始时间在 sTime 与 eTime 之间的数据，闭区间
-                if (null != sTime) {
-                    predicateList.add(criteriaBuilder.between(root.get("sTime").as(Date.class), sTime, null != eTime ? eTime : new Date()));
-                }
+                // if (null != sTime) {
+                //     predicateList.add(criteriaBuilder.between(root.get("sTime").as(Date.class), sTime, null != eTime ? eTime : new Date()));
+                // }
                 Predicate[] predicates = new Predicate[predicateList.size()];
                 return query.where(predicateList.toArray(predicates)).getRestriction();
             }
         };
         //查询
         Page<TaskEntity> entityPage = taskDaoRepository.findAll(specification, pageable);
-        return new Gson().toJson(entityPage);
+        String result = new Gson().toJson(entityPage);
+        logger.info("{}",result);
+        return result;
     }
 
     public List<TaskEntity> getByName(String name) {

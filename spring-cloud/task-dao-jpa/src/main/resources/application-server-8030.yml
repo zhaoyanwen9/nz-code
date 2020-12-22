@@ -34,16 +34,16 @@ spring:
 #      concurrency: 3
 
 server:
-  port: 9092
+  port: 8030
   servlet:
     context-path: /
-#eureka:
-#  instance:
-#    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
-#    prefer-ip-address: true
-#    healthcheck:
-#      enabled: true
-#  client:
-#    register-with-eureka: true
-#    service-url:
-#      defaultZone: http://127.0.0.1:8000/eureka/,http://127.0.0.1:8001/eureka/,http://127.0.0.1:8002/eureka/
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+    prefer-ip-address: true
+    healthcheck:
+      enabled: true
+  client:
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://127.0.0.1:5050/eureka/,http://127.0.0.1:5051/eureka/,http://127.0.0.1:5052/eureka/

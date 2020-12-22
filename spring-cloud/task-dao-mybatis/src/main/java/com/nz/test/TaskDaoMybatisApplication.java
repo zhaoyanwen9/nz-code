@@ -4,10 +4,12 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.ImportResource;
 
 // @ServletComponentScan
 // @ImportResource(locations = {"classpath:config/druid/druid-bean.xml"})
+@EnableDiscoveryClient
 @MapperScan("com.nz.test.mapper.**")
 @SpringBootApplication
 public class TaskDaoMybatisApplication {

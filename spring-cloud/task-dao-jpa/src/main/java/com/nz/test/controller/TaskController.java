@@ -109,13 +109,6 @@ public class TaskController {
     /**
      * 分页查询
      *
-     * @param page
-     * @param size
-     * @param type
-     * @param name
-     * @param sTime
-     * @param eTime
-     * @return
      * @RequestParam: 将请求参数绑定到你控制器的方法参数上
      * 语法：@RequestParam(value="参数名",required=true/false,defaultValue="")
      * value:参数名
@@ -123,13 +116,9 @@ public class TaskController {
      * defaultValue:默认参数值,如果设置了该值,required=true将失效,自动为false;如果没有传该参数，就使用默认值
      */
     @RequestMapping(value = "/getByRp", method = {RequestMethod.GET})
-    public String getByRp(@RequestParam(value = "page", defaultValue = "0") int page,
-                          @RequestParam(value = "size", defaultValue = "10") int size,
-                          @RequestParam(value = "type", defaultValue = "1") int type,
-                          @RequestParam(value = "name", required = false) String name,
-                          @RequestParam(value = "sTime", required = false) Date sTime,
-                          @RequestParam(value = "eTime", required = false) Date eTime) {
-        return taskService.getByRp(page, size, name, type, sTime, eTime);
+    public String getByRp() {
+        // taskService.getByRp(page, size, "", 0, null, null);
+        return UUID.randomUUID().toString();
     }
 
     /**

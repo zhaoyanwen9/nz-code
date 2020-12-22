@@ -1,5 +1,5 @@
 server:
-  port: 8090
+  port: 8040
 
 # mybatis:
 #   config-location: classpath:config/mybatis/mybatis-config.xml # mybatis的config文件位置配置
@@ -104,3 +104,11 @@ spring:
 logging:
   level:
     com.nz.test.mapper: debug
+
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:5050/eureka/,http://127.0.0.1:5051/eureka/,http://127.0.0.1:5052/eureka/

@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@MapperScan("com.nz.test.dao.mapper.*")
+@MapperScan("com.nz.test.dao.mapper")
 public class ShiroDriudApplication {
 
 	public static void main(String[] args) {

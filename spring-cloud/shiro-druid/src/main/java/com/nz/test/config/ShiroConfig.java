@@ -2,6 +2,7 @@ package com.nz.test.config;
 
 import com.nz.test.secutity.KickoutSessionControlFilter;
 import com.nz.test.secutity.MyShiroRealm;
+import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;

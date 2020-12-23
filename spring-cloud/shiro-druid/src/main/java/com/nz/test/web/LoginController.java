@@ -94,6 +94,7 @@ public class LoginController {
      */
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String loginPage() {
+        SysUser currentLoginUser = RequestUtils.currentLoginUser();
         logger.info("#### 跳转至登录页");
         return "login";
     }

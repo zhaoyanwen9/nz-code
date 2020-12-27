@@ -7,6 +7,7 @@ import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.servlet.SimpleCookie;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.crazycake.shiro.RedisCacheManager;
 import org.crazycake.shiro.RedisManager;
@@ -153,15 +154,17 @@ public class ShiroConfig {
      */
     @Bean
     public DefaultWebSessionManager sessionManager(String step) {
-        // SimpleCookie simpleCookie = new SimpleCookie("Token");
-        // simpleCookie.setPath("/");
-        // simpleCookie.setHttpOnly(false);
+        SimpleCookie simpleCookie = new SimpleCookie("Token");
+        simpleCookie.setPath("/");
+        simpleCookie.setHttpOnly(false);
         logger.info("{} DefaultWebSessionManager", step);
         DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
         sessionManager.setSessionDAO(redisSessionDAO(step));
+        // shiro 的session默认放在cookie中 禁用
         // sessionManager.setSessionIdCookieEnabled(false);
+        // 禁用url 重写 url; shiro请求时默认 jsessionId=id
         // sessionManager.setSessionIdUrlRewritingEnabled(false);
-        // sessionManager.setDeleteInvalidSessions(true);
+        // sessionManager.setDeleteInvalidSessions(false);
         // sessionManager.setSessionIdCookie(simpleCookie);
         return sessionManager;
     }

@@ -11,7 +11,7 @@ public class TaskHystrix2 implements FallbackFactory<TaskFeign> {
     public TaskFeign create(Throwable throwable) {
         return new TaskFeign() {
             @Override
-            public String getByRp() {
+            public String getByRp(int page, int size) {
                 return "呦西!!!";
             }
         };

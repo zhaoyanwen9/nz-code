@@ -16,5 +16,6 @@ import java.util.Date;
 public interface TaskFeign {
 
     @RequestMapping(value = "/task/getByRp", method = {RequestMethod.GET})
-    String getByRp();
+    String getByRp(@RequestParam(value = "page") int page,
+                   @RequestParam(value = "size") int size);
 }

@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 4050
 
 # https://www.cnblogs.com/ming-blogs/p/11032450.html
 # working directory

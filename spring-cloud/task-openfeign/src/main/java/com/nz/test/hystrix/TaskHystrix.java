@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 public class TaskHystrix implements TaskFeign {
 
     @Override
-    public String getByRp() {
+    public String getByRp(int page, int size) {
         return "服务有问题";
     }
 }

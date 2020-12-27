@@ -8,7 +8,6 @@ import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -31,10 +30,11 @@ public class TaskController {
     }
 
     @RequestMapping(value = "/getByRp", method = {RequestMethod.GET})
-    public String getTaskByRp() {
+    public String getTaskByRp(@RequestParam(value = "page") int page,
+                              @RequestParam(value = "size") int size) {
         ServiceInstance serviceInstance = loadBalancerClient.choose("task-dao-jpa");
-        String url = "http://%s:%s/task/getByRp";
-        String urlFormat = String.format(url, serviceInstance.getHost(), serviceInstance.getPort());
+        String url = "http://%s:%s/task/getByRp?page=%d&size=%d";
+        String urlFormat = String.format(url, serviceInstance.getHost(), serviceInstance.getPort(), page, size);
         String result = restTemplate.getForObject(urlFormat, String.class);
         logger.info("{} {}", urlFormat, result);
         return result;

@@ -13,6 +13,18 @@ eureka:
     service-url:
       defaultZone: http://127.0.0.1:5050/eureka/,http://127.0.0.1:5051/eureka/,http://127.0.0.1:5052/eureka/
 
+ribbon:
+  ConnectTimeout: 3000
+  ReadTimeout: 60000
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMillisecond: 60000 #熔断超时时长 10000ms
+
 management:
   endpoints:
     web:
@@ -23,6 +35,9 @@ zuul:
   prefix: /gateway
   ignored-services: '*'
   sensitive-headers: Cookie,Set-Cookie,Authorization # 指定全局敏感header，默认是Cooki,Set-Cookie,Authorization
+  host:
+    socket-timeout-millis: 60000
+    connect-timeout-millis: 60000
   routes:
     task-route: #路由名称,自定义
       path: /zuul-task/** # service-id对应的路径

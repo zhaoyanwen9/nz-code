@@ -16,3 +16,5 @@ nginx ->
                           task-dao-mybatis-plus: 8050
                           task-dao-jdbc: 8060
 3.HystrixDashboard: 4040
+4.shiro: 4050
+5.vue: 4060

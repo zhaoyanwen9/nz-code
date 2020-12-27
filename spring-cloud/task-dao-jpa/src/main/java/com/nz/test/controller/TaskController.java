@@ -7,6 +7,8 @@ import com.nz.test.async.AsyncTask;
 import com.nz.test.entity.TaskEntity;
 import com.nz.test.service.TaskService;
 //import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +22,8 @@ import java.util.UUID;
 @RestController
 @RequestMapping(value = "/task")
 public class TaskController {
+
+    private static final Logger logger = LoggerFactory.getLogger(TaskController.class);
 
     @Autowired
     private TaskService taskService;
@@ -116,9 +120,11 @@ public class TaskController {
      * defaultValue:默认参数值,如果设置了该值,required=true将失效,自动为false;如果没有传该参数，就使用默认值
      */
     @RequestMapping(value = "/getByRp", method = {RequestMethod.GET})
-    public String getByRp() {
-        // taskService.getByRp(page, size, "", 0, null, null);
-        return UUID.randomUUID().toString();
+    public String getByRp(@RequestParam(value = "page") int page,
+                          @RequestParam(value = "size") int size) {
+        logger.info("#### {} {}", page, size);
+        // return UUID.randomUUID().toString();
+        return taskService.getByRp(page, size, "", 0, null, null);
     }
 
     /**

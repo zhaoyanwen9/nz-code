@@ -1,20 +1,20 @@
 module.exports = {
     // axios域代理，解决axios跨域问题
-    // baseUrl: '/',
+    publicPath: '/task',
     lintOnSave: false,
     devServer: {
         // host: "localhost",
-        port: 9090,
+        port: 4060,
         // https: false,
         // open: false,
         proxy: {
-            '/api': {
+            '/task/gateway/zuul-task': {
                 // target: 'http://localhost:5050',
-                target: 'http://localhost:9090',
+                target: 'http://localhost:7070',
                 changeOrigin: true, //开启代理
                 ws: true, // 是否启用websockets
                 pathRewrite: {
-                    "^/api": "" // '/api'代替target
+                    "^/task": "" // '/api'代替target
                 }
             },
             '/proxy-permission/api/': {

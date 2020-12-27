@@ -31,6 +31,9 @@
         <module>task-service</module>
 		<module>task-web</module>
 		<module>xxl-sso</module>
+        <module>shiro-druid</module>
+        <module>rabbitmq-consumer</module>
+        <module>rabbitmq-provider</module>
     </modules>
 
     <properties>

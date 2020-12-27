@@ -438,7 +438,7 @@
                     sTime: null,
                     eTime: null,
                 }
-                this.axios.get('/api/task/getByRp/', {params}).then(response => {
+                this.axios.get('/task/gateway/zuul-task/task/getByRp', {params}).then(response => {
                     this.loading = false;
                     this.tableData = response.data.content;
                     this.total = response.data.total;

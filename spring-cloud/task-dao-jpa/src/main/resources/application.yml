@@ -1,6 +1,6 @@
 spring:
   application:
-    name: eureka-server
+    name: task-dao-jpa
   profiles:
     active: dev
 server:

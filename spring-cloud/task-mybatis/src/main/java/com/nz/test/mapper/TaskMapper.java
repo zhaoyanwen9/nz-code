@@ -1,6 +1,8 @@
 package com.nz.test.mapper;
 
+import com.nz.test.entity.AliasTaskEntity;
 import com.nz.test.entity.TaskEntity;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -8,6 +10,12 @@ import java.util.Map;
 
 @Repository
 public interface TaskMapper {
+
+    /**
+     * 根据名称获取
+     * @return
+     */
+    List<AliasTaskEntity> getByName(@Param("name") String name);
 
     /**
      * 获取数量

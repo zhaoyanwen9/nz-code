@@ -1,4 +1,4 @@
-package com.nz.test.service;
+package com.nz.test.service.impl;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -25,9 +25,9 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class TaskService {
+public class TaskServiceImpl {
 
-    private static final Logger logger = LoggerFactory.getLogger(TaskService.class);
+    private static final Logger logger = LoggerFactory.getLogger(TaskServiceImpl.class);
 
     private JsonParser jsonParser = new JsonParser();
 
@@ -35,6 +35,41 @@ public class TaskService {
 
     @Autowired
     private ITaskDaoJpaRepository taskDaoRepository;
+
+    public String getByRp(int page, int size, String name, int type, Date sTime, Date eTime) {
+        page--;
+        // page为页码,数据库从0页开始
+        page = page < 0 ? 0 : page;
+        Pageable pageable = PageRequest.of(page, size);
+        //规格定义
+        Specification<TaskEntity> specification = new Specification<TaskEntity>() {
+            @Override
+            public Predicate toPredicate(Root<TaskEntity> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
+                List<Predicate> predicateList = new ArrayList<>();
+                // 任务类型
+                if (type > 0) {
+                    predicateList.add(criteriaBuilder.equal(root.get("type").as(Integer.class), type));
+                }
+                // 任务名称
+                if (null != name && !"".equals(name)) {
+                    StringBuffer stringBuffer = new StringBuffer();
+                    stringBuffer.append("%");
+                    stringBuffer.append(name);
+                    stringBuffer.append("%");
+                    predicateList.add(criteriaBuilder.like(root.get("name").as(String.class), stringBuffer.toString()));
+                }
+                // 查询开始时间在 sTime 与 eTime 之间的数据，闭区间
+                // if (null != sTime) {
+                //     predicateList.add(criteriaBuilder.between(root.get("sTime").as(Date.class), sTime, null != eTime ? eTime : new Date()));
+                // }
+                Predicate[] predicates = new Predicate[predicateList.size()];
+                return query.where(predicateList.toArray(predicates)).getRestriction();
+            }
+        };
+        Page<TaskEntity> entityPage = taskDaoRepository.findAll(specification, pageable);
+        String result = new Gson().toJson(entityPage);
+        return result;
+    }
 
     public String add(TaskEntity taskEntity) {
         return new Gson().toJson(taskDaoRepository.save(taskEntity));
@@ -72,43 +107,6 @@ public class TaskService {
 
     public String stopById() {
         return "stop by id";
-    }
-
-    public String getByRp(int page, int size, String name, int type, Date sTime, Date eTime) {
-        page--;
-        // page为页码,数据库从0页开始
-        page = page < 0 ? 0 : page;
-        Pageable pageable = PageRequest.of(page, size);
-        //规格定义
-        Specification<TaskEntity> specification = new Specification<TaskEntity>() {
-            @Override
-            public Predicate toPredicate(Root<TaskEntity> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
-                List<Predicate> predicateList = new ArrayList<>();
-                // 任务类型
-                if (type > 0) {
-                    predicateList.add(criteriaBuilder.equal(root.get("type").as(Integer.class), type));
-                }
-                // 任务名称
-                if (null != name && !"".equals(name)) {
-                    StringBuffer stringBuffer = new StringBuffer();
-                    stringBuffer.append("%");
-                    stringBuffer.append(name);
-                    stringBuffer.append("%");
-                    predicateList.add(criteriaBuilder.like(root.get("name").as(String.class), stringBuffer.toString()));
-                }
-                // 查询开始时间在 sTime 与 eTime 之间的数据，闭区间
-                // if (null != sTime) {
-                //     predicateList.add(criteriaBuilder.between(root.get("sTime").as(Date.class), sTime, null != eTime ? eTime : new Date()));
-                // }
-                Predicate[] predicates = new Predicate[predicateList.size()];
-                return query.where(predicateList.toArray(predicates)).getRestriction();
-            }
-        };
-        //查询
-        Page<TaskEntity> entityPage = taskDaoRepository.findAll(specification, pageable);
-        String result = new Gson().toJson(entityPage);
-        logger.info("{}",result);
-        return result;
     }
 
     public List<TaskEntity> getByName(String name) {

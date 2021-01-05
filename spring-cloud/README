@@ -1,3 +1,9 @@
+############################################
+#
+# https://mybatis.org/mybatis-3/zh/index.html
+# https://github.com/huanzi-qch/springBoot
+#
+############################################
         console -> nginx -> gateway-zuul -> openfeign -> server
 nginx ->
         console -> nginx -> server: 认证

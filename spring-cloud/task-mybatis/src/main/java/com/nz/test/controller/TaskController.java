@@ -15,6 +15,30 @@ public class TaskController {
     private TaskService taskService;
 
     /**
+     * 分页查询
+     *
+     * @param page
+     * @param size
+     * @return
+     */
+    @GetMapping(value = "/getByRp")
+    public String getByRp(@RequestParam(value = "page") int page,
+                          @RequestParam(value = "size") int size) {
+        return taskService.getByRp(page, size);
+    }
+
+    /**
+     *根据名称模糊匹配
+     *
+     * @param name
+     * @return
+     */
+    @GetMapping(value = "/getByName")
+    public String getByName(@RequestParam(value = "name") String name) {
+        return taskService.getByName(name);
+    }
+
+    /**
      * 获取任务数量
      *
      * @return 任务数量
@@ -62,19 +86,6 @@ public class TaskController {
         System.out.println("============5s 后再次查询对象 2=============");
         taskService.getById(pkId + 1);
         return taskService.getById(pkId);
-    }
-
-    /**
-     * 分页查询
-     *
-     * @param page
-     * @param size
-     * @return
-     */
-    @GetMapping(value = "/getByRp")
-    public String getByRp(@RequestParam(value = "page") int page,
-                          @RequestParam(value = "size") int size) {
-        return taskService.getByRp(page, size);
     }
 
     /**

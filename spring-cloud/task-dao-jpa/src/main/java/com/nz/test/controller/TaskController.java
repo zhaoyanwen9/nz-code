@@ -1,20 +1,19 @@
 package com.nz.test.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.nz.test.async.AsyncTask;
+import com.nz.test.service.impl.AsyncTaskServiceImpl;
+import com.nz.test.service.impl.ThreadTaskService;
 import com.nz.test.entity.TaskEntity;
-import com.nz.test.service.TaskService;
+import com.nz.test.service.impl.TaskServiceImpl;
 //import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.Future;
 
 /**
  * @author nz
@@ -26,24 +25,23 @@ public class TaskController {
     private static final Logger logger = LoggerFactory.getLogger(TaskController.class);
 
     @Autowired
-    private TaskService taskService;
+    private TaskServiceImpl taskService;
 
     @Autowired
-    private AsyncTask asyncTask;
+    private AsyncTaskServiceImpl asyncTaskService;
 
-    @Autowired
-    private KafkaSender kafkaSender;
-
-    private KafkaConsumer kafkaConsumer;
-
-    @GetMapping(value = "/sender")
-    public String sendMsg() {
-        return kafkaSender.send(UUID.randomUUID().toString());
-    }
-
-    @RequestMapping(value = "/add", method = {RequestMethod.POST})
-    public String addTask() {
-        return UUID.randomUUID().toString();
+    /**
+     * 分页查询
+     *
+     * @RequestParam: 将请求参数绑定到你控制器的方法参数上, 语法为@RequestParam(value="参数名",required=true/false,defaultValue="")
+     * value:参数名
+     * required:是否包含该参数,默认为true
+     * defaultValue:默认参数值
+     */
+    @RequestMapping(value = "/getByRp", method = {RequestMethod.GET})
+    public String getByRp(@RequestParam(value = "page") int page,
+                          @RequestParam(value = "size") int size) {
+        return taskService.getByRp(page, size, "", 0, null, null);
     }
 
     /**
@@ -55,11 +53,31 @@ public class TaskController {
      * @EnableAsync
      */
     @RequestMapping("/taskService")
-    public String doTask() throws InterruptedException {
+    public String asyncTask() throws InterruptedException {
         long start = System.currentTimeMillis();
-        asyncTask.task1();
-        asyncTask.task2();
-        asyncTask.task3();
+        /**
+         * 一. Thread
+         * 1. 新建线程并执行任务类
+         * 2. jdk1.8之后可以使用Lambda 表达式
+         * 二. async
+         * 1.异步调用,无返回值
+         * 2.异步调用,有返回值
+         * 3.异步调用,无返回值,事务测试
+         */
+        new Thread(new ThreadTaskService()).start();
+        new Thread(() -> {
+            try {
+                long sTime = System.currentTimeMillis();
+                Thread.sleep(3000);
+                long eTime = System.currentTimeMillis();
+                System.out.println("当前线程：" + Thread.currentThread().getName() + "，" + "任务一耗时：" + (eTime - sTime) + "ms");
+            } catch (InterruptedException e) {
+
+            }
+        }).start();
+        asyncTaskService.asyncTask();
+        Future<String> future = asyncTaskService.asyncTask(UUID.randomUUID().toString());
+        asyncTaskService.asyncTaskForTransaction(true);
         long end = System.currentTimeMillis();
         System.out.println("任务总耗时：" + (end - start) + "ms");
         return "任务总耗时：" + (end - start) + "ms";
@@ -108,23 +126,6 @@ public class TaskController {
             e.printStackTrace();
         }
         return "client 1";
-    }
-
-    /**
-     * 分页查询
-     *
-     * @RequestParam: 将请求参数绑定到你控制器的方法参数上
-     * 语法：@RequestParam(value="参数名",required=true/false,defaultValue="")
-     * value:参数名
-     * required:是否包含该参数,默认为true，表示该请求路径中必须包含该参数，如果不包含就报错。
-     * defaultValue:默认参数值,如果设置了该值,required=true将失效,自动为false;如果没有传该参数，就使用默认值
-     */
-    @RequestMapping(value = "/getByRp", method = {RequestMethod.GET})
-    public String getByRp(@RequestParam(value = "page") int page,
-                          @RequestParam(value = "size") int size) {
-        logger.info("#### {} {}", page, size);
-        // return UUID.randomUUID().toString();
-        return taskService.getByRp(page, size, "", 0, null, null);
     }
 
     /**
@@ -177,4 +178,16 @@ public class TaskController {
         }
         return result;
     }
+
+    // @Autowired
+    // private KafkaSender kafkaSender;
+    // private KafkaConsumer kafkaConsumer;
+    // @GetMapping(value = "/sender")
+    // public String sendMsg() {
+    //     return kafkaSender.send(UUID.randomUUID().toString());
+    // }
+    // @RequestMapping(value = "/add", method = {RequestMethod.POST})
+    // public String addTask() {
+    //     return UUID.randomUUID().toString();
+    // }
 }

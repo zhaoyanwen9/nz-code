@@ -27,6 +27,7 @@
         <module>task-dao-jooq</module>
         <module>task-dao-jpa</module>
         <module>task-dao-mybatis</module>
+        <module>task-mybatis</module>
         <module>task-openfeign</module>
         <module>task-service</module>
 		<module>task-web</module>

@@ -24,11 +24,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+		<!-- spring-cloud-starter-eureka-server -->
+		<!-- Spring Cloud Eureka使用Netflix Eureka来实现服务注册与发现.既包含服务端组件(服务注册中心),也包含客户端组件,并且服务端与客户端均采用Java编写 -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>

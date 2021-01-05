@@ -429,7 +429,6 @@
                 }
             },
             getTableData() {
-                // /api/gateway/zuul-task/feign-task/getByRp/
                 let params = {
                     page: this.currentPage,
                     size: this.pageSize,
@@ -438,7 +437,8 @@
                     sTime: null,
                     eTime: null,
                 }
-                this.axios.get('/task/gateway/zuul-task/task/getByRp', {params}).then(response => {
+                // /task/gateway/zuul-task/task/getByRp
+                this.axios.get('/api/task/getByRp', {params}).then(response => {
                     this.loading = false;
                     this.tableData = response.data.content;
                     this.total = response.data.total;

@@ -3,7 +3,7 @@ nginx ->
         console -> nginx -> server: 认证
 
 # 端口规划
-1.eureka-server: 5050,5051,5052
+1.[服务注册中心端口号]: 5050,5051,5052
 2.task-console: 9090,9091
       nginx: (80 -> 9090,9091), 8080 (8080 -> 7070)
           gateway-zuul: 7070
@@ -15,6 +15,28 @@ nginx ->
                           task-dao-mybatis: 8040
                           task-dao-mybatis-plus: 8050
                           task-dao-jdbc: 8060
+                          task-mybatis: 8070
+                          test-mybatis: 8070
 3.HystrixDashboard: 4040
 4.shiro: 4050
 5.vue: 4060
+
+springboot 多数据源（三种数据库连接池--JDBC，dbcp2，Druid）
+
+#  kafka:
+#    bootstrap-servers: 127.0.0.1:9092
+#    producer:
+#      retries: 0
+#      batch-size: 16384
+#      buffer-memory: 33554432
+#      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+#      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+#    consumer:
+#      group-id:  consumer-default
+#      auto-commit-interval: 100
+#      auto-offset-reset: earliest
+#      enable-auto-commit: true
+#      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#    listener:
+#      concurrency: 3

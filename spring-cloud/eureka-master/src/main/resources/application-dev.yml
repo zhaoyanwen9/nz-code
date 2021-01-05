@@ -1,0 +1,31 @@
+
+eureka:
+  # server:
+  #   enable-self-preservation: true # 是否允许开启自我保护模式,缺省:true;当Eureka服务器在短时间内丢失过多客户端时,自我保护模式可使服务端不再删除失去连接的客户端
+  #   renewal-percent-threshold: 0.85 # 开启自我保护模式比例，超过该比例后开启自我保护模式
+  #   renewal-threshold-update-interval-ms: 900 # 自我保护模式比例更新定时任务执行频率
+  #   peer-eureka-nodes-update-interval-ms: 60000 # 集群节点更新频率,单位：毫秒
+  #   eviction-interval-timer-in-ms: 60000 # Eureka服务器清理无效节点的时间间隔,单位:毫秒,缺省:60000,即60秒
+  #   use-read-only-response-cache: false # 是否开启只读请求响应缓存,响应缓存(ResponseCache)机制目前使用两层缓存策略.优先读取只读缓存,读取不到后读取固定过期的读写缓存
+  #   response-cache-update-interval-ms: 30 # 只读缓存更新频率
+  #   response-cache-auto-expiration-in-seconds: 60 # 读写缓存写入后过期时间,单位:秒
+  #   delta-retention-timer-interval-in-ms: 30 # 移除队列里过期的租约变更记录的定时任务执行频率
+  #   retention-time-in-m-s-in-delta-queue: 180 # 租约变更记录过期时长
+  instance:
+    # appname: registry-center # 服务名，默认取 spring.application.name 配置值，如果没有则为 unknown
+    hostname: master # 主机名: windows - C:\Windows\System32\drivers\etc; linux - /etc/hosts
+    # ip-address: 127.0.0.1 # 应用实例IP
+    # prefer-ip-address: true # 客户端在注册时使用自己的IP而不是主机名,缺省:false
+    # instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port} # 实例ID
+    # lease-renewal-interval-in-seconds: 30 # 服务续约,client发送心跳给server端的心跳频率,单位:秒,缺省30
+    # lease-expiration-duration-in-seconds: 60 # 服务失效时间,server至上一次收到client的心跳之后,等待下一次心跳的超时时间,在这个时间内若没收到下一次心跳,则将移除该instance,单位:秒,默认:90
+    # status-page-url-path: /info # 状态页面的URL，相对路径，默认使用 HTTP 访问，如需使用 HTTPS则要使用绝对路径配置，缺省：/info
+    # health-check-url-path: /health # 健康检查页面的URL，相对路径，默认使用 HTTP 访问，如需使用 HTTPS则要使用绝对路径配置，缺省：/health
+  client:
+    register-with-eureka: false #是否向注册中心注册自己,默认true
+    # fetch-registry: false # 是否从Eureka注册中心获取注册信息,默认:true,一般情况下,Eureka服务端不需要检索服务
+    # registry-fetch-interval-seconds: 30 # 客户端拉取服务注册信息间隔,单位:秒,缺省:30
+    service-url:
+      defaultZone: http://slave1:5051/eureka/,http://slave2:5052/eureka/ # Eureka服务器的地址;类型为HashMap;缺省的Key为 defaultZone,缺省的Value为 http://localhost:8761/eureka 或 http://${eureka.instance.hostname}:${server.port}/eureka/;如果服务注册中心为高可用集群时,多个注册中心地址以逗号分隔;
+    # health-check:
+    #   enabled: true # 是否启用客户端健康检查

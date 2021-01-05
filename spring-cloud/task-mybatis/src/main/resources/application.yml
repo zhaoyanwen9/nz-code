@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: test-mybatis
+  profiles:
+    active: dev
+server:
+  port: 8070
+  context-path: /

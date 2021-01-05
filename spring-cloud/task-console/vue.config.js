@@ -17,6 +17,14 @@ module.exports = {
                     "^/task": "" // '/api'代替target
                 }
             },
+            '/api': {
+                target: 'http://localhost:8030',
+                changeOrigin: true, //开启代理
+                ws: true, // 是否启用websockets
+                pathRewrite: {
+                    "^/api": "" // '/api'代替target
+                }
+            },
             '/proxy-permission/api/': {
                 target: 'http://localhost:xxxx/',
                 changeOrigin: true

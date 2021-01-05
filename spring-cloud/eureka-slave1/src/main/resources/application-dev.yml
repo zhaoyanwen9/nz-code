@@ -1,0 +1,7 @@
+eureka:
+  instance:
+    hostname: slave1
+  client:
+    register-with-eureka: false
+    service-url:
+      defaultZone: http://master:5050/eureka/,http://slave2:5052/eureka/

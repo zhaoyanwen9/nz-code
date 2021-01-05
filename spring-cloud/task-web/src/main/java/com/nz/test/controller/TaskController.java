@@ -39,5 +39,4 @@ public class TaskController {
         logger.info("{} {}", urlFormat, result);
         return result;
     }
-
 }

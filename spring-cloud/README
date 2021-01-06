@@ -2,7 +2,7 @@
 #
 # https://mybatis.org/mybatis-3/zh/index.html
 # https://github.com/huanzi-qch/springBoot
-#
+# https://github.com/Wasabi1234/Java-Interview-Tutorial
 ############################################
         console -> nginx -> gateway-zuul -> openfeign -> server
 nginx ->

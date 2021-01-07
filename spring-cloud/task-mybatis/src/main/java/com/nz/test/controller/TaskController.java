@@ -54,7 +54,7 @@ public class TaskController {
      * @return 任务数量
      */
     @GetMapping(value = "/getCount")
-    public int getById() {
+    public int getCount() {
         return taskService1.getCount();
     }
 
@@ -118,4 +118,5 @@ public class TaskController {
     public List<Map<String, Object>> getMany(@RequestParam(value = "id") int pkId) {
         return taskService2.getMany(pkId);
     }
+
 }

@@ -55,4 +55,6 @@ public interface TaskMapper {
      * @return
      */
     List<Map<String, Object>> getAll();
+
+    List<Map<String, Object>> getMany(int id);
 }

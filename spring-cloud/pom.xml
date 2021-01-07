@@ -20,16 +20,15 @@
         <module>eureka-master</module>
         <module>eureka-slave1</module>
         <module>eureka-slave2</module>
-        <module>gateway-zuul</module>
         <module>hystrix-dashboard</module>
-        <module>task-base</module>
+        <module>gateway-zuul</module>
         <module>task-dao-jdbc</module>
         <module>task-dao-jooq</module>
         <module>task-dao-jpa</module>
-        <module>task-dao-mybatis</module>
         <module>task-mybatis</module>
+        <module>test-mybatis</module>
+        <module>task-mybatisplus</module>
         <module>task-openfeign</module>
-        <module>task-service</module>
 		<module>task-web</module>
 		<module>xxl-sso</module>
         <module>shiro-druid</module>

@@ -1,5 +1,10 @@
 package com.nz.test.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class TaskEntity {
 
     private Integer id;

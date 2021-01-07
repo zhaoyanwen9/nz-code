@@ -4,6 +4,14 @@ server:
 spring:
   application:
     name: gateway-zuul
+  zipkin:
+    base-url: http://127.0.0.1:9411/
+    discoveryClientEnabled: false
+    sender:
+      type: web  # 设置使用http的方式传输数据
+  sleuth:
+    sampler:
+      percentage: 1.0
 
 eureka:
   instance:

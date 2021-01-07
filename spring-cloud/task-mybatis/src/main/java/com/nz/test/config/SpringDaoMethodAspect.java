@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 
 /**
+ * https://www.cnblogs.com/lwcode6/p/12058096.html
  * @ClassName SpringDaoMethodAspect
  * @Description </p>
  * @author: shi de tao

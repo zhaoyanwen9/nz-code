@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Map;
 
-@Service
+@Service(value = "taskService")
 public class TaskService {
 
     private Gson gson = new Gson();
@@ -44,5 +44,9 @@ public class TaskService {
 
     public List<Map<String, Object>> getAll() {
         return taskMapper.getAll();
+    }
+
+    public List<Map<String, Object>> getMany(int id) {
+        return taskMapper.getMany(id);
     }
 }

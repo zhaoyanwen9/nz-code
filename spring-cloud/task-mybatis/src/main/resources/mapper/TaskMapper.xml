@@ -85,9 +85,32 @@
         select id,name,type,status from tb_task where id = #{id}
     </select>
 
-    <!-- 返回多条记录的Map时, resultType为 Map, 返回的类型是List<Map<String, Object>> -->
-    <select id="getAll" resultType="map">
-        select id,name,type,status from tb_task
+    <sql id="taskColumns"> ${alias}.id,${alias}.status</sql>
+    <select id="getMany" resultType="map">
+        select
+        <include refid="taskColumns"><property name="alias" value="t1"/></include>,
+        <include refid="taskColumns"><property name="alias" value="t2"/></include>
+        from
+        tb_task t1
+        cross join
+        tb_task_history t2
+        where t1.id = #{id}
     </select>
 
+    <!-- 返回多条记录的Map时, resultType为 Map, 返回的类型是List<Map<String, Object>> -->
+    <sql id="table_name">
+        tb_${prefix}
+    </sql>
+    <sql id="key_include">
+        from
+        <include refid="${include_target}"/>
+    </sql>
+    <select id="getAll" resultType="map">
+        select
+        id
+        <include refid="key_include">
+            <property name="prefix" value="task"/>
+            <property name="include_target" value="table_name"/>
+        </include>
+    </select>
 </mapper>

@@ -1,6 +1,7 @@
 package com.nz.test.entity;
 
 public class AliasTaskEntity {
+
     private Integer id;
 
     private String name;

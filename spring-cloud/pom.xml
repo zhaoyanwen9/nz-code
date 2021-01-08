@@ -31,8 +31,6 @@
         <module>task-mybatis</module>
         <module>task-mybatisplus</module>
 		<module>xxl-sso</module>
-        <module>rabbitmq-consumer</module>
-        <module>rabbitmq-provider</module>
     </modules>
 
     <properties>

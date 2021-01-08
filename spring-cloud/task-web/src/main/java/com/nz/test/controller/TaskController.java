@@ -32,7 +32,8 @@ public class TaskController {
     @RequestMapping(value = "/getByRp", method = {RequestMethod.GET})
     public String getTaskByRp(@RequestParam(value = "page") int page,
                               @RequestParam(value = "size") int size) {
-        ServiceInstance serviceInstance = loadBalancerClient.choose("task-dao-jpa");
+        // task-mybatis task-dao-jpa
+        ServiceInstance serviceInstance = loadBalancerClient.choose("task-mybatis");
         String url = "http://%s:%s/task/getByRp?page=%d&size=%d";
         String urlFormat = String.format(url, serviceInstance.getHost(), serviceInstance.getPort(), page, size);
         String result = restTemplate.getForObject(urlFormat, String.class);

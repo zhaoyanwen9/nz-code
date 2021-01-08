@@ -1,4 +1,7 @@
 spring:
+  sleuth:
+    sampler:
+      percentage: 1.0
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver  # mysql数据库驱动
     type: com.alibaba.druid.pool.DruidDataSource # druid连接池
@@ -65,6 +68,21 @@ mybatis:
   type-aliases-package: com.nz.test.entity
   mapper-locations: classpath:config/mapper/*Mapper.xml
   config-location: classpath:config/mybatis-config.xml
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 2000  #修改Hystrix默认超时时间
+
+#暴露全部的监控信息
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
 
 eureka:
   client:
